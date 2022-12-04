@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>Custom Page</title>
+    <meta name="author" content="CS_USERNAME">
+  <script>
+    let cgiLocation = "http://GCP_VM_IP_ADDRESS/13.JSAndCGIActivity/customScript.cgi"; 
+    function submitClicked() {
+      if (!isNameValid())
+        return;
+
+      let args = "?";
+      args += "name="+document.querySelectorAll("input[type=text]")[0].value;
+      document.querySelectorAll("input[type=radio]:checked").forEach( 
+        n => args += "&background=" + n.value );
+      document.querySelectorAll("input[type=checkbox]:checked").forEach( 
+        n => args += "&" + n.value + "=true" );
+      window.location.href = cgiLocation + args;
+    }
+
+    function isNameValid() {
+      var name_input = document.querySelector("#name-input");
+      //name_input.style.color = "maroon";
+      
+      /*
+         YOUR JAVASCRIPT CODE HERE
+       */
+      if(name_input==null||name_input.charAt(0).toUpperCase()!=name_input.charAt(0)){
+        var warning_text = document.querySelector("#warning-text");
+        warning_text.value.display = block;
+        return false
+      }
+      return true;
+    }
+
+  </script>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+    }
+    #warning-text {
+      background-color: orange;
+      display: none;
+    }
+  </style>
+  </head>
+  <body>
+    <h1>Page Customization Options:</h1>
+    <ul>
+      <li>User's Name: <input type="text" id="name-input"></li>
+      <li>Background: <ul>
+        <li><input type="radio" name="background" value="Light">Light</li>
+        <li><input type="radio" name="background" value="Dark">Dark</li></ul></li>
+      <li>Contents: <ul>
+        <li><input type="checkbox" value="Greeting">Greeting</li>
+        <li><input type="checkbox" value="SuppressOptions">Suppress Options</li></ul></li>
+      <li><input type="button" value="submit" onclick="submitClicked()"></li>
+    </ul>
+    <p id="warning-text">WARNING: Errors found in form!</p>
+  </body>
+</html>
