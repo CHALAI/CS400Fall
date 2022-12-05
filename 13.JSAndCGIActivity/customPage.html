@@ -3,7 +3,7 @@
     <title>Custom Page</title>
     <meta name="author" content="CS_USERNAME">
   <script>
-    let cgiLocation = "http://GCP_VM_IP_ADDRESS/13.JSAndCGIActivity/customScript.cgi"; 
+    let cgiLocation = "http://35.184.164.132/cgi-bin /13.JSAndCGIActivity/customScript.cgi";
     function submitClicked() {
       if (!isNameValid())
         return;
@@ -24,12 +24,16 @@
       /*
          YOUR JAVASCRIPT CODE HERE
        */
-      if(name_input==null||name_input.charAt(0).toUpperCase()!=name_input.charAt(0)){
-        var warning_text = document.querySelector("#warning-text");
-        warning_text.value.display = block;
-        return false
+      var firstChar = name_input.value.charAt(0);
+      console.log(name_input);
+      if(firstChar!==" "&&firstChar.toUpperCase()==firstChar){
+        console.log(true);
+        return true;
       }
-      return true;
+      var warning_text = document.querySelector("#warning-text");
+      warning_text.value.display = block;
+      console.log(false);
+      return false;
     }
 
   </script>

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.io.File;
 
 public class CustomProgram {
+    public CustomProgram(String s) {
+    }
+
     public static void main(String[] args) throws Exception {
         // reads the provided customPage.html into list
         Scanner in = new Scanner(new File("customPage.html"));
@@ -14,6 +17,9 @@ public class CustomProgram {
         // update list to reflect changes requested through command line args
         // TODO: Complete this section
         String name_input = null;
+        String background = null;
+        String greeting = null;
+        String suppressOptions = null;
         if (args.length > 0)
             for (String arg : args[0].split("&")) {
                 String[] keyValuePair = arg.split("=");
@@ -21,7 +27,9 @@ public class CustomProgram {
                     case "name":
                         // TODO: when a greeting is selected (below), this
                         // arguments's value should be displayed in that greeting
-                        name_input = keyValuePair[1];
+                        if(keyValuePair[1]!= null){
+                            name_input = keyValuePair[1];
+                        }
                         break;
                     case "background":
                         // TODO: when background="Dark", the body's color should be
@@ -30,6 +38,7 @@ public class CustomProgram {
                         // default.
                         if (Objects.equals(keyValuePair[1], "Dark")) {
                             for (String line : list) {
+                                background = "true";
                                 if (line.contains("background-color: white")) {
                                     line = "background-color: black;";
                                 }
@@ -47,6 +56,7 @@ public class CustomProgram {
                         // name should be used in place of the word Stranger in
                         // this greeting.
                         if (keyValuePair[1] == "true") {
+                            greeting = "true";
                             int count = 0;
                             for (String line : list) {
                                 if (line.contains("<h1>Page Customization Options:</h1>")) {
@@ -67,6 +77,7 @@ public class CustomProgram {
                         // Everything from and including the <h1> label through the
                         // final </ul> should be omitted to accomplish this.
                         if(keyValuePair[1] == "true"){
+                            suppressOptions = "true";
                             list.removeIf(line -> line.contains("<h1>") || line.contains("<li>") || line.contains("<ul>") || line.contains("</ul>"));
                         }
                         break;
@@ -76,5 +87,9 @@ public class CustomProgram {
         // print the resulting html out to system.out (standard out)
         for (String line : list)
             System.out.println(line);
+        System.out.println(name_input);
+        System.out.println(background);
+        System.out.println(greeting);
+        System.out.println(suppressOptions);
     }
 }
